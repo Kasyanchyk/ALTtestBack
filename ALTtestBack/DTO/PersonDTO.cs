@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hl7.Fhir.Model;
 
 namespace ALTtestBack.DTO
 {
@@ -13,7 +14,9 @@ namespace ALTtestBack.DTO
 
         public string Birthday { get; set; }
 
-        public IEnumerable<PersonAddressDTO> Address { get; set; }
+        public IEnumerable<PersonAddressDTO> Addresses { get; set; }
+
+        public AdministrativeGender Gender { get; set; }
 
 
     }
