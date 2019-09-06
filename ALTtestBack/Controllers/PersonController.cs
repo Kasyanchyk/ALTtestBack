@@ -25,27 +25,33 @@ namespace ALTtestBack.Controllers
         }
 
         [HttpGet]
-        public PersonDTO Get()
+        public IEnumerable<Person> Get()
         {
-            //Bundle results = client.Search<Person>();
+            Bundle results = client.Search<Person>(new SearchParams().LimitTo(100));
 
-            //return results.Entry.Select(x => x.Resource).Cast<Person>().ToList();
-            PersonDTO personDTO = new PersonDTO()
-            {
-                Names = new List<PersonNameDTO>()
-                {
-                    new PersonNameDTO(){ Family="Зубенко", Givens=new List<string>(){"Михаил"}, Use=HumanName.NameUse.Official},
-                    new PersonNameDTO(){  Givens=new List<string>(){"Мишаня"}, Use=HumanName.NameUse.Usual}
-                },
-                Birthday = "1921-12-12",
-                Gender = AdministrativeGender.Male,
-                Addresses = new List<PersonAddressDTO>()
-                {
-                    new PersonAddressDTO(){City="Тернополь", Lines=new List<string>(){"улица Пушкина" } }
-                }
-            };
+            return results.Entry.Select(x => x.Resource).Cast<Person>().ToList();
+            //PersonDTO personDTO = new PersonDTO()
+            //{
+            //    Names = new List<PersonNameDTO>()
+            //    {
+            //        new PersonNameDTO(){ Family="Зубенко", Givens=new List<string>(){"Михаил"}, Use=HumanName.NameUse.Official},
+            //        new PersonNameDTO(){  Givens=new List<string>(){"Мишаня"}, Use=HumanName.NameUse.Usual}
+            //    },
+            //    Birthday = "1921-12-12",
+            //    Gender = AdministrativeGender.Male,
+            //    Addresses = new List<PersonAddressDTO>()
+            //    {
+            //        new PersonAddressDTO(){City="Тернополь", Lines=new List<string>(){"улица Пушкина" } }
+            //    },
+            //    Telecoms = new List<PersonTelecomDTO>()
+            //    {
+            //        new PersonTelecomDTO(){System= ContactPoint.ContactPointSystem.Phone, Use=ContactPoint.ContactPointUse.Mobile, Value="911911911" },
+            //        new PersonTelecomDTO(){System= ContactPoint.ContactPointSystem.Email, Use=ContactPoint.ContactPointUse.Work, Value="work@wokr.net" }
 
-            return personDTO;
+            //    }
+            //};
+
+            //return personDTO;
         }
 
         [HttpPost]
@@ -53,6 +59,13 @@ namespace ALTtestBack.Controllers
         {
             client.Create<Person>(personeService.CreatePerson(personDTO));
             return CreatedAtAction(nameof(Create), personDTO);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            client.Delete("Person/" + id);
+            return NoContent();
         }
 
     }

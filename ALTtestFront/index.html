@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Persons app</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div id="personsList" class="container wrapper">
+        <header>
+            <h1>Persons</h1>
+        </header>
+        <div>
+            <button type="button" class="btn btn-lg btn-primary" data-bind="click: getPersons">Primary</button>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Family Name</th>
+                        <th>Given Name</th>
+                        <th>Use</th>
+                        <th>Gender</th>
+                        <th>Birthday</th>
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Line</th>
+                        <th>Telecom</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: persons">
+                    <tr>
+                        <td data-bind="text: idElement.value"></td>
+                        <td data-bind="foreach: name">
+                            <div data-bind="if: familyElement">
+                                <p data-bind="text: familyElement.value;"></p>
+                            </div>
+                        </td>
+                        <td data-bind="foreach: name">
+                            <p data-bind="foreach: givenElement">
+                                <span data-bind="text: value;"></span>
+                            </p>
+                        </td>
+
+                        <td data-bind="foreach: name">
+                            <p data-bind="text: useElement.value;"></p>
+                        </td>
+
+                        <td data-bind="if: genderElement">
+                            <p data-bind="text: genderElement.value"></p>
+                        </td>
+
+                        <td data-bind="if: birthDateElement">
+                            <p class="line" data-bind="text: birthDateElement.value"></p>
+                        </td>
+                        <td data-bind="foreach: address">
+                            <span data-bind="if:countryElement">
+                                    <p data-bind="text: countryElement.value"></p>
+                                </span>
+                        </td>
+
+                        <td data-bind="foreach: address">
+                            <span data-bind="if:cityElement">
+                                <p data-bind="text: cityElement.value"></p>
+                            </span>
+
+                        </td>
+                        <td data-bind="foreach: address">
+                            <p class="line" data-bind="text: (lineElement.map(x=>x.value).join(', ') + ' (' + useElement.value+')')">
+                            </p>
+
+                        </td>
+                        <td data-bind="foreach: telecom">
+                            <span data-bind="if: valueElement">
+                            <p class="line" data-bind="text: systemElement.value + ': ' +valueElement.value +' ('+ useElement .value+')'">
+                            </p>
+                        </span>
+
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="js/knockout-3.5.0.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

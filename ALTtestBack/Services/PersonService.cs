@@ -51,7 +51,7 @@ namespace ALTtestBack.Services
                     address.Use = addressDTO.Use;
                     foreach (var lineDTO in addressDTO.Lines)
                     {
-                        address.Line.ToList().Add(lineDTO);
+                        address.Line=address.Line.Append(lineDTO);
                     }
                     address.City = addressDTO.City;
                     address.State = addressDTO.State;
